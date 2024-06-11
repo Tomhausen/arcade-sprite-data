@@ -8,7 +8,8 @@
         "CODE_OF_CONDUCT.md",
         "README.md",
         "SECURITY.md",
-        "main.ts"
+        "main.ts",
+        "spriteData.ts"
     ],
     "testFiles": [],
     "testDependencies": {
