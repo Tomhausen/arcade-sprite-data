@@ -1,16 +1,22 @@
 namespace sprites {
+    function setData<T>(sprite: Sprite, name: string, value: T) {
+        if (!sprite || !name) return;
+        sprite.data[name] = value;
+    }
+
+    function getData<T>(sprite: Sprite, name: string): T {
+        if (!sprite || !name) return undefined;
+        return sprite.data[name] as T;
+    }
+
     /**
      * Sets a number in the data of a sprite
      */
     //% blockId=spriteDataSetNumber block="set $sprite=variables_get data $name to number $value"
     //% name.shadow="spriteDataNumberNameShadow"
-    //% group="Data"
-    //% weight=10
-    //% blockGap=8
+    //% group="Data" weight=10 blockGap=8
     export function setDataNumber(sprite: Sprite, name: string, value: number) {
-        if (!sprite || !name) return;
-        const d = sprite.data;
-        d[name] = value;
+        setData<number>(sprite, name, value);
     }
 
     /**
@@ -18,13 +24,10 @@ namespace sprites {
      */
     //% blockId=spriteDataChangeNumber block="change $sprite=variables_get data $name by number $value"
     //% name.shadow="spriteDataNumberNameShadow"
-    //% group="Data"
-    //% weight=10
-    //% blockGap=8
+    //% group="Data" weight=10 blockGap=8
     export function changeDataNumberBy(sprite: Sprite, name: string, value: number) {
         if (!sprite || !name) return;
-        const d = sprite.data;
-        d[name] = (d[name] || 0) + value;
+        sprite.data[name] = (sprite.data[name] || 0) + value;
     }
 
     /**
@@ -32,13 +35,9 @@ namespace sprites {
      */
     //% blockId=spriteDataGetNumber block="$sprite=variables_get data $name as number"
     //% name.shadow="spriteDataNumberNameShadow"
-    //% group="Data"
-    //% weight=10
-    //% blockGap=8
+    //% group="Data" weight=10 blockGap=8
     export function readDataNumber(sprite: Sprite, name: string): number {
-        if (!sprite || !name) return 0;
-        const d = sprite.data;
-        return d[name] as number;
+        return getData<number>(sprite, name) || 0;
     }
 
     /**
@@ -46,27 +45,19 @@ namespace sprites {
      */
     //% blockId=spriteDataSetString block="set $sprite=variables_get data $name to string $value"
     //% name.shadow="spriteDataStringNameShadow"
-    //% group="Data"
-    //% weight=10
-    //% blockGap=8
+    //% group="Data" weight=10 blockGap=8
     export function setDataString(sprite: Sprite, name: string, value: string) {
-        if (!sprite || !name) return;
-        const d = sprite.data;
-        d[name] = value;
+        setData<string>(sprite, name, value);
     }
 
     /**
-     * Gets a number in the data of a sprite
+     * Gets a string in the data of a sprite
      */
     //% blockId=spriteDataGetString block="$sprite=variables_get data $name as string"
     //% name.shadow="spriteDataStringNameShadow"
-    //% group="Data"
-    //% weight=10
-    //% blockGap=8
+    //% group="Data" weight=10 blockGap=8
     export function readDataString(sprite: Sprite, name: string): string {
-        if (!sprite || !name) return "";
-        const d = sprite.data;
-        return d[name] as string;
+        return getData<string>(sprite, name) || "";
     }
 
     /**
@@ -74,13 +65,9 @@ namespace sprites {
      */
     //% blockId=spriteDataSetBoolean block="set $sprite=variables_get data $name to boolean $value"
     //% name.shadow="spriteDataBooleanNameShadow"
-    //% group="Data"
-    //% weight=10
-    //% blockGap=8
+    //% group="Data" weight=10 blockGap=8
     export function setDataBoolean(sprite: Sprite, name: string, value: boolean) {
-        if (!sprite || !name) return;
-        const d = sprite.data;
-        d[name] = !!value;
+        setData<boolean>(sprite, name, value);
     }
 
     /**
@@ -88,13 +75,9 @@ namespace sprites {
      */
     //% blockId=spriteDataGetBoolean block="$sprite=variables_get data $name as boolean"
     //% name.shadow="spriteDataBooleanNameShadow"
-    //% group="Data"
-    //% weight=10
-    //% blockGap=8
+    //% group="Data" weight=10 blockGap=8
     export function readDataBoolean(sprite: Sprite, name: string): boolean {
-        if (!sprite || !name) return false;
-        const d = sprite.data;
-        return !!d[name];
+        return getData<boolean>(sprite, name) || false;
     }
 
     /**
@@ -102,13 +85,9 @@ namespace sprites {
      */
     //% blockId=spriteDataSetSprite block="set $sprite=variables_get data $name to sprite $value"
     //% name.shadow="spriteDataSpriteNameShadow"
-    //% group="Data"
-    //% weight=10
-    //% blockGap=8
+    //% group="Data" weight=10 blockGap=8
     export function setDataSprite(sprite: Sprite, name: string, value: Sprite) {
-        if (!sprite || !name) return;
-        const d = sprite.data;
-        d[name] = value;
+        setData<Sprite>(sprite, name, value);
     }
 
     /**
@@ -116,103 +95,29 @@ namespace sprites {
      */
     //% blockId=spriteDataGetSprite block="$sprite=variables_get data $name as sprite"
     //% name.shadow="spriteDataSpriteNameShadow"
-    //% group="Data"
-    //% weight=10
-    //% blockGap=8
+    //% group="Data" weight=10 blockGap=8
     export function readDataSprite(sprite: Sprite, name: string): Sprite {
-        if (!sprite || !name) return undefined;
-        const d = sprite.data;
-        return d[name] as Sprite;
-    }
-
-
-    /**
-     * Sets an Image in the data of a sprite.
-     * Deprecated. Use setDataImageValue instead
-     */
-    //% blockId=spriteDataSetImage block="set $sprite=variables_get data $name to image $value"
-    //% name.shadow="spriteDataImageNameShadow"
-    //% group="Data"
-    //% deprecated=1
-    //% weight=9
-    //% blockGap=8
-    export function setDataImage(sprite: Sprite, name: string, value: Image) {
-        setDataImageValue(sprite, name, value);
+        return getData<Sprite>(sprite, name);
     }
 
     /**
      * Sets an Image in the data of a sprite
      */
-    //% blockId=spriteDataSetImageValue block="set $sprite data $name to image $value"
+    //% blockId=spriteDataSetImageValue block="set $sprite=variables_get data $name to image $value"
     //% name.shadow="spriteDataImageNameShadow"
-    //% group="Data"
-    //% sprite.shadow=variables_get
     //% value.shadow=screen_image_picker
-    //% weight=9
-    //% blockGap=8
+    //% group="Data" weight=9 blockGap=8
     export function setDataImageValue(sprite: Sprite, name: string, value: Image) {
-        if (!sprite || !name) return;
-        const d = sprite.data;
-        d[name] = value;
+        setData<Image>(sprite, name, value);
     }
 
     /**
-     * Gets a sprite in the data of a sprite
+     * Gets an Image in the data of a sprite
      */
     //% blockId=spriteDataGetImage block="$sprite=variables_get data $name as image"
     //% name.shadow="spriteDataImageNameShadow"
-    //% group="Data"
-    //% weight=9
-    //% blockGap=8
+    //% group="Data" weight=9 blockGap=8
     export function readDataImage(sprite: Sprite, name: string): Image {
-        if (!sprite || !name) return undefined;
-        const d = sprite.data;
-        return d[name] as Image;
-    }
-
-
-    //% block="$name"
-    //% blockId=spriteDataNumberNameShadow
-    //% blockHidden=true shim=TD_ID
-    //% name.fieldEditor="autocomplete" name.fieldOptions.decompileLiterals=true
-    //% name.fieldOptions.key="spritedatanumber"
-    export function _numberNameShadow(name: string) {
-        return name
-    }
-
-    //% block="$name"
-    //% blockId=spriteDataSpriteNameShadow
-    //% blockHidden=true shim=TD_ID
-    //% name.fieldEditor="autocomplete" name.fieldOptions.decompileLiterals=true
-    //% name.fieldOptions.key="spritedatasprite"
-    export function _spriteNameShadow(name: string) {
-        return name
-    }
-
-    //% block="$name"
-    //% blockId=spriteDataBooleanNameShadow
-    //% blockHidden=true shim=TD_ID
-    //% name.fieldEditor="autocomplete" name.fieldOptions.decompileLiterals=true
-    //% name.fieldOptions.key="spritedataboolean"
-    export function _booleanNameShadow(name: string) {
-        return name
-    }
-
-    //% block="$name"
-    //% blockId=spriteDataStringNameShadow
-    //% blockHidden=true shim=TD_ID
-    //% name.fieldEditor="autocomplete" name.fieldOptions.decompileLiterals=true
-    //% name.fieldOptions.key="spritedatastring"
-    export function _stringNameShadow(name: string) {
-        return name
-    }
-
-    //% block="$name"
-    //% blockId=spriteDataImageNameShadow
-    //% blockHidden=true shim=TD_ID
-    //% name.fieldEditor="autocomplete" name.fieldOptions.decompileLiterals=true
-    //% name.fieldOptions.key="spritedataimage"
-    export function _imageNameShadow(name: string) {
-        return name
+        return getData<Image>(sprite, name);
     }
 }
